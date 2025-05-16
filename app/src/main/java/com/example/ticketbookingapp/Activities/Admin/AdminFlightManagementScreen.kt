@@ -252,7 +252,7 @@ fun FlightItem(flight: FlightModel, onEdit: () -> Unit, onDelete: () -> Unit) {
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "Giá: $${String.format("%.2f", flight.Price)}",
+                    text = "Giá: ${String.format("%.2f", flight.Price)}" + " VNĐ",
                     color = colorResource(R.color.lightBlue),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
@@ -533,7 +533,8 @@ fun AddFlightDialog(onDismiss: () -> Unit, onAddFlight: (FlightModel) -> Unit) {
                         NumberSeat = numberSeat.toInt(),
                         Price = price.toDouble(),
                         ReservedSeats = "",
-                        status = status
+                        status = status,
+                        Time = time
                     )
                     onAddFlight(newFlight)
                 }
@@ -1152,8 +1153,10 @@ fun EditFlightDialog(flight: FlightModel, onDismiss: () -> Unit, onUpdateFlight:
                         Passenger = flight.Passenger,
                         Seats = flight.Seats,
                         bookingTime = flight.bookingTime,
+                        Time = time, // Thêm trường Time để đảm bảo giá trị được lưu
                         status = status
                     )
+                    println("Updating flight with Time: $time") // Log để debug
                     onUpdateFlight(updatedFlight)
                 }
             }

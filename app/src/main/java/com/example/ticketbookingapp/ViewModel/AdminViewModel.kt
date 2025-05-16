@@ -38,8 +38,9 @@ class AdminViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 _flights.value = adminRepository.getAllFlights()
+                println("Loaded flights: ${_flights.value.map { it.FlightId to it.Time }}") // Log để debug
             } catch (e: Exception) {
-                // Xử lý lỗi
+                println("Error loading flights: ${e.message}")
             }
         }
     }
@@ -112,10 +113,12 @@ class AdminViewModel : ViewModel() {
     fun updateFlight(flight: FlightModel) {
         viewModelScope.launch {
             try {
+                println("Sending flight to repository with Time: ${flight.Time}") // Log để debug
                 adminRepository.updateFlight(flight)
-                _flights.value = _flights.value.map { if (it.FlightId == flight.FlightId) flight else it }
+                loadFlights() // Làm mới danh sách từ Firebase
             } catch (e: Exception) {
-                // Xử lý lỗi
+                println("Error updating flight: ${e.message}")
+                throw e // Ném lỗi để hiển thị Toast trong giao diện
             }
         }
     }

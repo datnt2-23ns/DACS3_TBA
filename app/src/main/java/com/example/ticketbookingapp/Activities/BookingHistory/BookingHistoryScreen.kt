@@ -394,7 +394,7 @@ fun BookingItem(
         )
 
         Text(
-            text = "$${String.format("%.2f", booking.price)}",
+            text = "${String.format("%.2f", booking.price)}" + " VNĐ",
             fontWeight = FontWeight.SemiBold,
             fontSize = 25.sp,
             color = colorResource(R.color.lightBlue),
